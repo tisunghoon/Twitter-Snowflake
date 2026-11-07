@@ -16,16 +16,60 @@
 
 ## 구조
 
-```mermaid
-flowchart LR
-  Client[HTTP 요청] --> Controller[IdController]
-  Controller --> Generator[SnowflakeGenerator 단일 Bean]
-  Generator --> Clock[주입된 Clock]
-  Config[worker ID 설정] --> Generator
-  Generator --> Decoder[필드 복원]
-  Generator --> Error[도메인 오류]
-  Error --> Advice[HTTP 오류 변환]
+### 요청이 처리되는 흐름
+
+별도 Mermaid 플러그인 없이 읽을 수 있는 텍스트 흐름도다.
+
+```text
+[사용자: POST /api/ids 요청]
+            |
+            v
+[IdController: ID 발급 요청 전달]
+            |
+            v
+[SnowflakeGenerator: ID 생성]
+  - Clock에서 현재 시간을 읽는다.
+  - 시간과 이전 순번을 검사한다.
+  - 시간 + 워커 번호 + 순번을 합친다.
+            |
+            +--- 성공 ---> [생성된 ID를 Controller에 반환]
+            |                          |
+            |                          v
+            |             [Decoder: ID에서 각 필드 복원]
+            |                          |
+            |                          v
+            |             [HTTP 200: ID와 필드를 응답]
+            |
+            +--- 실패 ---> [도메인 오류 발생]
+                                       |
+                                       v
+                          [예외 처리기: 오류를 HTTP로 변환]
+                                       |
+                                       v
+                          [HTTP 503: 오류 코드를 응답]
 ```
+
+### 서버가 시작할 때 준비하는 것
+
+```text
+[설정에서 worker ID 읽기]
+            |
+            v
+[설정값 검사] --- 누락 / 범위 오류 ---> [서버 시작 실패]
+            |
+          정상
+            |
+            v
+[worker ID + Clock으로 생성기 Bean 1개 만들기]
+            |
+            v
+[모든 발급 요청이 같은 생성기를 사용]
+```
+
+Clock은 현재 시간을 알려 주는 시계이며, worker ID는 이 생성기의 번호다.
+둘은 생성기에 넣어 주는 재료다. Decoder는 성공한 ID를 풀어 보는 역할이며
+생성기가 Decoder를 호출하는 구조가 아니라 Controller가 응답을 만들 때 사용한다.
+생성 중 실패하면 번호를 반환하지 않고, 예외 처리기가 오류 응답을 만든다.
 
 루트 패키지 제안: `com.example.snowflake`.
 `core`에는 Spring 의존성이 없는 생성기·복원·오류를, `config`에는 Bean과 설정 검증을,
