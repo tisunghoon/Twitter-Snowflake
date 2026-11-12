@@ -5,7 +5,7 @@ description: Use when planning, implementing, reviewing, or resuming a user-faci
 
 # Snowflake 기능별 개발
 
-[역할](../../agent.md), [기능 규칙](../../features/README.md), [검증 안내](../../verification/README.md)를 읽는다.
+[작업 안내](../../AGENT.md), [기능 규칙](../../features/README.md), [검증 안내](../../verification/README.md)를 읽는다.
 사용자가 요청한 단계만 수행한다. 문서 작성 요청은 제품 구현 승인이 아니다.
 
 ## 학습과 설계
