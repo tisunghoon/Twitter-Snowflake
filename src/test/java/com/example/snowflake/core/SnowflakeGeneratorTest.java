@@ -105,11 +105,14 @@ class SnowflakeGeneratorTest {
                                     return ids;
                                 }));
             }
+            long deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(10);
             start.countDown();
             var ids = new HashSet<Long>();
             var sequences = new HashSet<Integer>();
             for (var future : futures) {
-                for (long id : future.get(10, TimeUnit.SECONDS)) {
+                for (long id :
+                        future.get(
+                                Math.max(0, deadline - System.nanoTime()), TimeUnit.NANOSECONDS)) {
                     ids.add(id);
                     var parts = SnowflakeDecoder.decode(id);
                     assertEquals(1, parts.workerId());
