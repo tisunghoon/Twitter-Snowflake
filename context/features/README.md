@@ -12,8 +12,9 @@
 ## 파일
 [템플릿](template.md)을 이용해 기능 폴더에 plan.md를 만든다.
 verification.md에는 실제 실행 증거를, review.md에는 독립 리뷰와 수정 확인을 적는다.
-현재 예시는 [F-01 계획](f-01-issue-id/plan.md)이며 구현 승인 전이다.
-F-02 이후 폴더는 해당 기능 계획을 구체화할 때 만든다.
+[F-01](f-01-issue-id/plan.md), [F-02](f-02-error-recovery/plan.md),
+[F-03](f-03-concurrent-issuance/plan.md), [F-04](f-04-multi-worker/plan.md) 계획이 있습니다.
+사용자가 작업 착수를 요청했으며 Agy가 상세 계획·미정 설계를 확인하고 순차 진행합니다.
 
 ## 완료 조건
 승인된 성공·실패 경로 구현, 필수 검사 통과, 독립 리뷰 통과, 차단 결함 해소가 필요하다.
