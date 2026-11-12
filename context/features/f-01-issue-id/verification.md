@@ -33,3 +33,5 @@
 독립 리뷰어가 포트 선점 검사→Java bind 사이 경쟁에서 타 서버 응답으로 거짓 성공하는 경로를 재현했습니다. `test_port_race.py`를 추가한 수정 전 검사는 종료 1(경쟁 서버의 21건 응답을 성공으로 오인)이며 `build/verification/f01/port-race-red.log`에 보존했습니다.
 자식 전용 서버 로그에서 정확한 포트의 Tomcat 시작과 애플리케이션 시작 완료를 확인한 뒤에만 POST하도록 수정했습니다. 요청 전후 자식 생존도 확인합니다.
 수정 후 `./scripts/verify.sh` 종료 0, 최신 로그 `build/verification/20261112-132131/verify.log`. 서식·컴파일·JUnit 13건·JAR·21건 HTTP·세 실패 경로 및 새 포트 경쟁 회귀 검사가 모두 통과했습니다. 포트 경쟁 시 타 서버 호출 0건·자기 Java PID 종료·경쟁 리스너 생존을 확인했습니다.
+
+최종 제품 커밋 `2700610`(선행 빌드 c5e2fce/core c5ccd9a/API ea00449 포함)의 src·scripts·빌드 파일과 검증한 작업 트리 일치를 확인했습니다. Windows Wrapper의 CRLF는 .gitattributes로 Git 저장 시 LF 정규화하며, Python 캐시는 Git 제외합니다. 제품 동작 변경은 없습니다.
