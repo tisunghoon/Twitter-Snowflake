@@ -59,3 +59,8 @@ F-01의 공통 명령은 구축됐습니다. 기능별 예정 검사는 실제 �
 
 ## 남은 결정
 D-02~07은 확정됐으며 사용자 구현 시작 지시에 따라 순차 실행합니다. 이미 승인된 역할·순서는 재확인하지 않습니다. 선행 구현과의 대조에서 계약·범위 변경이 발견된 경우에만 차이와 영향을 사용자에게 제시합니다.
+
+## 실제 실행 대조
+F-02 완료 기준 60078e1, 선행 JUnit16건·전체verify 통과입니다. AC-01의 8×256 고정 시각 검사는 기존 SnowflakeGeneratorTest를 재사용합니다. 신규 SnowflakeConcurrencyTest는4097회, IdConcurrencyIntegrationTest는실제 HTTP2048회입니다. 테스트 전용 ConcurrentCalls/ConcurrentCallsTest로 공통 deadline·모든 결과 회수·실패/timeout 정리를 검사합니다. 하네스 신규 동작은 RED3건을 확인한 뒤 구현했고, 기존 생성기는 수정하지 않았습니다. 실제 서버 테스트는 Spring 컨텍스트 준비 뒤 순차2건을 별도 기록하고 동시2048건과 분리합니다.
+
+HTTP 준비는 SpringBootTest RANDOM_PORT 컨텍스트가 실제 서버 시작을 완료한 뒤 첫 실제 POST를 5초 한도로 검사합니다. 재시도로 성공을 숨기지 않고 30초보다 짧은 한도에 검증합니다. 새 하네스는 ready latch로 8개 작업자 준비 후 main이 시작 장벽을 해제하며, 기존2048 core 검사도 단일deadline으로 정합화합니다.
