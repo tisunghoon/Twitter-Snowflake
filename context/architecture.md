@@ -209,5 +209,5 @@ src/test/java/com/example/snowflake/
 
 `application.yml`에 워커 기본값을 넣지 않는다. 실행할 때 필수 값으로 제공한다.
 Core 테스트는 Spring 서버 없이 실행하고, API·설정 테스트는 필요한 Spring 기능을 포함한다.
-구현 Agy가 테스트를 통과하면 Codex가 이 구조와 [설계의 검증 계약](design.md)을 기준으로
-코드 리뷰·직접 검증을 수행한다.
+메인 에이전트의 자체 검증 후 새 컨텍스트 리뷰어가 이 구조와 [설계의 검증 계약](design.md)을 기준으로
+코드·테스트·실행 증거를 독립 검토한다.

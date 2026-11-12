@@ -28,5 +28,5 @@ AI가 실행 조건, 명령, 성공 기준, 실패 근거를 같은 순서로 �
 실행 스크립트는 루트의 `scripts/`, CI 설정은 `.github/workflows/`에 만들 예정이다.
 자동 보고서는 `build/verification/<실행 식별자>/`에 모으고 Git에서 제외한다.
 결과에는 코드 버전과 미커밋 변경 여부, 실행 환경, 명령, 종료 코드, 로그 위치를 포함한다.
-진행 상태는 [progress.md](../progress.md), 최종 리뷰는 생성 예정인 `context/review.md`에 기록한다.
+진행 상태는 [progress.md](../progress.md), 기능별 실행 증거와 리뷰는 [features](../features/README.md)의 해당 기능 폴더에 기록한다.
 실패 로그에 자격 증명이나 환경 변수 전체를 출력하지 않는다.
