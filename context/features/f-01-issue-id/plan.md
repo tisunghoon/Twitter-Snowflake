@@ -8,8 +8,8 @@
 - D-02~07: 처음에는 미확정이었으며, 계획 검수 후 사용자의 구현 시작 지시로 확정했습니다.
 - 기준: `e154684`. 인수 당시 수정 파일은 이 plan.md와 progress.md이며, 비추적 `.idea/`, `.omc/`, `context/.omc/`는 보존합니다.
 
-## 기존 결과 검토와 재작성 범위
-실제 파일 목록을 확인한 결과 제품 소스·테스트·빌드 파일·Wrapper·스크립트는 없습니다. 재작성 대상은 계획이며, 재사용할 검증된 제품 구현은 없습니다.
+## 기존 결과 검토와 재작성 범위 (계획 재작성 당시)
+계획 재작성 당시 실제 파일 목록을 확인한 결과 제품 소스·테스트·빌드 파일·Wrapper·스크립트는 없습니다. 재작성 대상은 계획이며, 재사용할 검증된 제품 구현은 없습니다.
 원본 계획·progress와 원본 전체 diff는 저장소 밖 `/Users/chosunghoon/snowflake-handoff-backups/20261112-123756`에 보존했습니다. Git 기준과 인수 당시 내용을 각각 비교할 수 있습니다.
 
 기존 계획에서 다음을 보완합니다.
@@ -35,7 +35,7 @@ D-02~07 제안은 [설계](../../design.md)를 따릅니다.
 공식 근거: [Boot 요구사항](https://docs.spring.io/spring-boot/system-requirements.html), [Gradle JVM 호환성](https://docs.gradle.org/current/userguide/compatibility.html).
 
 ## 변경 예상과 인터페이스
-아래 파일은 모두 생성 예정이며 아직 존재하지 않습니다. 루트 패키지는 `com.example.snowflake`입니다.
+아래는 계획 수립 당시 생성 예정 파일 목록입니다. 실제 구현·검증 결과는 [검증 기록](verification.md)을 확인합니다. 루트 패키지는 `com.example.snowflake`입니다.
 - `settings.gradle`, `build.gradle`, `.gitignore`, `gradlew`, `gradlew.bat`, `gradle/wrapper/*`: Java 21 컴파일·JUnit·Boot 실행 JAR 구성입니다. Wrapper 원본과 체크섬을 공식 배포본으로 확인합니다.
 - `core/SnowflakeFormat.java`: epoch·비트·마스크·허용 시각 상수입니다.
 - `core/SnowflakeGenerator.java`: `SnowflakeGenerator(int workerId, Clock clock)`, `synchronized long nextId()`입니다. 범위 비교 후 시간 차를 계산하여 overflow를 방지합니다.
@@ -49,7 +49,7 @@ D-02~07 제안은 [설계](../../design.md)를 따릅니다.
 - 기능 verification/review와 tasks/progress/decisions: 실제 결과와 승인 이력을 기록합니다.
 
 Boot MVC와 Boot 테스트 의존성은 HTTP 및 JUnit 검증을 위해 사용합니다. 별도 validation 라이브러리 대신 설정 생성자에서 검사합니다.
-서식 검사는 기존 명세에 맞춰 Spotless를 사용하며 플러그인과 formatter 버전은 공식 호환성 확인 후 고정합니다. DB·인증·접근 제어 데이터는 없습니다.
+계획 당시 서식 검사에 Spotless를 제안했으며, 이후 실제 고정·실행한 버전은 [검증 기록](verification.md)에 기록했습니다. DB·인증·접근 제어 데이터는 없습니다.
 
 ## 완료 조건과 검증
 기존 AC 번호를 유지합니다. F-02/03까지 필수 보호를 미루지 않습니다.
@@ -77,7 +77,7 @@ Boot MVC와 Boot 테스트 의존성은 HTTP 및 JUnit 검증을 위해 사용�
 6. 새 컨텍스트 리뷰어가 승인 계약·규칙·기준 커밋·새 파일 포함 diff·실행 증거를 읽기 전용 검토합니다. 수정 후 영향을 받는 검사를 재실행하고 정확성 변경은 재리뷰합니다.
 7. 검증·리뷰한 내용과 일치하는 변경만 작은 커밋으로 남깁니다. 기능 전체 완료 후 F-02로 이동합니다.
 
-예정 명령(현재 미구축): `JAVA_HOME=$(/usr/libexec/java_home -v 21) ./gradlew test`, `JAVA_HOME=$(/usr/libexec/java_home -v 21) ./gradlew spotlessCheck check bootJar`, `./scripts/verify.sh`입니다.
+계획 당시 예정 명령(당시 미구축): `JAVA_HOME=$(/usr/libexec/java_home -v 21) ./gradlew test`, `JAVA_HOME=$(/usr/libexec/java_home -v 21) ./gradlew spotlessCheck check bootJar`, `./scripts/verify.sh`입니다.
 verify는 환경→서식→컴파일/테스트→JAR→HTTP 순서로 실행하며 JDK 21을 명시합니다. 로그는 `build/verification/<실행 ID>/`에 보존합니다.
 verification.md에 명령·종료 코드·대상 코드·환경·테스트 수·로그·미실행 항목을 남깁니다. UI는 없어 브라우저 검사는 적용하지 않습니다. 회귀 기준선은 없습니다.
 
@@ -94,4 +94,4 @@ D-01·D-09와 인계·재작성 자체는 재확인하지 않습니다.
 계획 검수 후 사용자의 구현 시작 지시로 D-02~07과 실행 계획을 승인받았습니다. 이후 구현·검증·독립 리뷰·커밋을 완료했습니다.
 
 ## 실행 승인
-2026-11-12 사용자: “f-01부터 구현과 테스트를 시작해”. 위 계획과 D-02~07 계약으로 구현을 시작합니다. 담당 Codex, 작업 브랜치 feat/f01-id-issuance입니다. 이전 승인 대기 표기는 계획 수립 당시 이력이며 현재는 승인 후 구현 중입니다.
+2026-11-12 사용자: “f-01부터 구현과 테스트를 시작해”. 위 계획과 D-02~07 계약으로 구현을 시작합니다. 담당 Codex, 작업 브랜치 feat/f01-id-issuance입니다. 이전 승인 대기 표기는 계획 수립 당시 이력이며, 이 실행 승인으로 당시 구현 단계에 진입했습니다. 현재는 완료 상태입니다.

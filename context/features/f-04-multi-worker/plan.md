@@ -5,7 +5,7 @@
 - 상태: 구현·필수 검증·새 컨텍스트 독립 리뷰·필요한 재리뷰·커밋 완료입니다.
 - 담당: Codex(wG:p3). 선행 기능 F-03의 실제 검증·새 컨텍스트 독립 리뷰·커밋 완료 후에만 구현합니다.
 - 확정 사항 D-01·D-09를 유지합니다. D-02~07은 계획 검수 후 사용자의 F-01부터 구현 시작 지시로 확정됐습니다. 이번 실행은 해당 계약을 유지합니다.
-- 계획 수립 당시 기준은 `e154684`였고 제품 코드는 없었습니다. 현재 F-01 제품과 실행 기반은 커밋됐습니다. 아래 파일 목록은 변경 예정이며, 기능 진입 시 실제 선행 커밋과 경로를 대조합니다.
+- 계획 수립 당시 기준은 `e154684`였고 제품 코드는 없었습니다. 현재 F-01 제품과 실행 기반은 커밋됐습니다. 아래는 당시 변경 예상 목록입니다. 실제 선행 커밋·경로·실행 결과는 하단의 실제 실행 대조와 [검증 기록](verification.md)을 확인합니다.
 - 기존 후속 계획과 전체 diff 백업: `/Users/chosunghoon/snowflake-handoff-backups/20261112-130027-followup-plans`. 무관한 `.idea/`, `.omc/`, `context/.omc/`는 변경하지 않습니다.
 - 근거: [설계](../../design.md), [결정](../../decisions.md), [워크플로우](../../rules/workflow.md), [검증 안내](../../verification/README.md), [선행 F-01 계획](../f-01-issue-id/plan.md).
 
@@ -13,7 +13,7 @@
 사용자는 같은 실행 JAR을 서로 다른 포트·worker 1과 2로 실행하고 두 서버에서 발급된 ID의 고유성과 워커 필드를 확인합니다.
 수동 워커 배정만 사용합니다. 중복 워커 자동 탐지·재시작 이후 고유성·분산 락·배포·전역 엄격 정렬은 제외합니다.
 
-## 변경 예상 (모두 예정)
+## 변경 예상 (계획 수립 당시)
 - `src/test/java/com/example/snowflake/core/SnowflakeMultiWorkerTest.java`: 같은 고정 시각의 서로 다른 생성기를 검사합니다.
 - F-01의 `config/SnowflakeConfigTest.java`: 기존 누락·범위 오류 및 0/1023 경계 검사를 재사용하고 빠진 단언만 추가합니다.
 - `scripts/multi-worker-smoke-test.sh`: JDK 21·JAR·포트·워커·로그 경로를 받아 두 서버를 기동하고 정리하는 진입점입니다.
@@ -52,7 +52,7 @@
 
 ## 예정 검사와 커밋
 - 관련 검사: `JAVA_HOME=$(/usr/libexec/java_home -v 21) ./gradlew test --tests '*SnowflakeMultiWorkerTest' --tests '*SnowflakeConfigTest'`
-- 실행: `./scripts/multi-worker-smoke-test.sh`, 실패 경로: `./scripts/test-multi-worker-smoke.sh` — 아직 미구축이며 입력 인자와 실제 명령을 구축 시 기록합니다.
+- 실행: `./scripts/multi-worker-smoke-test.sh`, 실패 경로: `./scripts/test-multi-worker-smoke.sh` — 계획 당시 미구축이었으며, 실제 실행 방법과 결과는 [검증 기록](verification.md)에 기록했습니다.
 - 커밋 1: `chore: 서로 다른 워커의 고유성과 설정 경계 검증` — core·config 회귀입니다.
 - 커밋 2: `chore: 두 워커 서버의 HTTP 발급 검증 자동화` — 기동·합산·정리입니다.
 - 커밋 3: `chore: 다중 서버 검사 실패와 중단 정리 검증` — 실패 주입 하네스입니다.

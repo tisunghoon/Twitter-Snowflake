@@ -5,7 +5,7 @@
 - 상태: 구현·필수 검증·새 컨텍스트 독립 리뷰·필요한 재리뷰·커밋 완료입니다.
 - 담당: Codex(wG:p3). 선행 기능 F-01의 실제 검증·새 컨텍스트 독립 리뷰·커밋 완료 후에만 구현합니다.
 - 확정 사항 D-01·D-09를 유지합니다. D-02~07은 계획 검수 후 사용자의 F-01부터 구현 시작 지시로 확정됐습니다. 이번 실행은 해당 계약을 유지합니다.
-- 계획 수립 당시 기준은 `e154684`였고 제품 코드는 없었습니다. 현재 F-01 제품과 실행 기반은 커밋됐습니다. 아래 파일 목록은 변경 예정이며, 기능 진입 시 실제 선행 커밋과 경로를 대조합니다.
+- 계획 수립 당시 기준은 `e154684`였고 제품 코드는 없었습니다. 현재 F-01 제품과 실행 기반은 커밋됐습니다. 아래는 당시 변경 예상 목록입니다. 실제 선행 커밋·경로·실행 결과는 하단의 실제 실행 대조와 [검증 기록](verification.md)을 확인합니다.
 - 기존 후속 계획과 전체 diff 백업: `/Users/chosunghoon/snowflake-handoff-backups/20261112-130027-followup-plans`. 무관한 `.idea/`, `.omc/`, `context/.omc/`는 변경하지 않습니다.
 - 근거: [설계](../../design.md), [결정](../../decisions.md), [워크플로우](../../rules/workflow.md), [검증 안내](../../verification/README.md), [선행 F-01 계획](../f-01-issue-id/plan.md).
 
@@ -13,7 +13,7 @@
 사용자는 발급 불가 이유를 오류 코드로 구분하고, 유효한 시각으로 회복한 뒤 중복 없는 ID를 다시 받습니다.
 F-01부터 존재해야 하는 방어를 재구현하는 작업이 아니라 실제 생성기→MVC 오류 응답→회복 성공의 연속 시나리오를 보강합니다.
 
-## 변경 예상 (모두 예정)
+## 변경 예상 (계획 수립 당시)
 - `src/test/java/com/example/snowflake/core/SnowflakeRecoveryTest.java`: 제어 Clock의 실패·회복과 성공 ID 집합을 검사합니다.
 - `src/test/java/com/example/snowflake/api/IdRecoveryIntegrationTest.java`: 테스트 구성에서 Clock만 교체하고 실제 생성기·컨트롤러·예외 처리기를 사용합니다. 발급 결과 mock은 사용하지 않습니다.
 - F-01의 `support/MutableClock.java`를 재사용합니다. 제품 core·API는 새 검사로 실제 결함이 드러난 경우만 수정합니다.

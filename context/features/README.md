@@ -14,7 +14,7 @@
 verification.md에는 실제 실행 증거를, review.md에는 독립 리뷰와 수정 확인을 적는다.
 [F-01](f-01-issue-id/plan.md), [F-02](f-02-error-recovery/plan.md),
 [F-03](f-03-concurrent-issuance/plan.md), [F-04](f-04-multi-worker/plan.md) 계획이 있습니다.
-사용자가 작업 착수를 요청했으며 Codex가 F-01 계획을 재작성하고 미확정 계약 확인 후 순차 진행합니다.
+Codex가 F-01 계획 재작성 후 F-01~04를 순차 완료했습니다. 현재 상태는 [기능 목록](../tasks.md), 실행·리뷰 근거는 각 기능의 verification.md와 review.md를 확인합니다.
 
 ## 완료 조건
 승인된 성공·실패 경로 구현, 필수 검사 통과, 독립 리뷰 통과, 차단 결함 해소가 필요하다.

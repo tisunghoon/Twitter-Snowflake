@@ -5,7 +5,7 @@
 - 상태: 구현·필수 검증·새 컨텍스트 독립 리뷰·필요한 재리뷰·커밋 완료입니다.
 - 담당: Codex(wG:p3). 선행 기능 F-02의 실제 검증·새 컨텍스트 독립 리뷰·커밋 완료 후에만 구현합니다.
 - 확정 사항 D-01·D-09를 유지합니다. D-02~07은 계획 검수 후 사용자의 F-01부터 구현 시작 지시로 확정됐습니다. 이번 실행은 해당 계약을 유지합니다.
-- 계획 수립 당시 기준은 `e154684`였고 제품 코드는 없었습니다. 현재 F-01 제품과 실행 기반은 커밋됐습니다. 아래 파일 목록은 변경 예정이며, 기능 진입 시 실제 선행 커밋과 경로를 대조합니다.
+- 계획 수립 당시 기준은 `e154684`였고 제품 코드는 없었습니다. 현재 F-01 제품과 실행 기반은 커밋됐습니다. 아래는 당시 변경 예상 목록입니다. 실제 선행 커밋·경로·실행 결과는 하단의 실제 실행 대조와 [검증 기록](verification.md)을 확인합니다.
 - 기존 후속 계획과 전체 diff 백업: `/Users/chosunghoon/snowflake-handoff-backups/20261112-130027-followup-plans`. 무관한 `.idea/`, `.omc/`, `context/.omc/`는 변경하지 않습니다.
 - 근거: [설계](../../design.md), [결정](../../decisions.md), [워크플로우](../../rules/workflow.md), [검증 안내](../../verification/README.md), [선행 F-01 계획](../f-01-issue-id/plan.md).
 
@@ -13,7 +13,7 @@
 사용자는 여러 발급 요청을 동시에 보내도 성공 응답마다 다른 ID를 받습니다.
 F-01의 생성기 단일 Bean과 잠금을 유지하며, 공유 상태와 실제 HTTP 경로에서 결과 누락·중복을 검사합니다. 성능 목표·처리량 향상·동시 응답 도착 순서 정렬은 보장하지 않습니다.
 
-## 변경 예상 (모두 예정)
+## 변경 예상 (계획 수립 당시)
 - `src/test/java/com/example/snowflake/core/SnowflakeConcurrencyTest.java`: 고정 Clock·시작 장벽·결과 집합 검사입니다.
 - `src/test/java/com/example/snowflake/api/IdConcurrencyIntegrationTest.java`: RANDOM_PORT 서버와 실제 Java HttpClient로 하나의 컨텍스트에 동시 요청합니다. 생성기를 직접 호출하거나 MockMvc로 대체하지 않습니다.
 - 기존 MutableClock·생성기·복원기·HTTP 응답 검사를 재사용합니다. 제품 잠금·Bean 구성은 결함이 확인된 경우만 수정합니다.
