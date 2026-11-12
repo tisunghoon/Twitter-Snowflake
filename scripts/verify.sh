@@ -23,4 +23,5 @@ step ./gradlew spotlessCheck check bootJar
 step ./scripts/smoke-test.sh --log-dir "$run_dir"
 step python3 scripts/test_smoke.py --log-dir "$run_dir"
 step python3 scripts/test_port_race.py --log-dir "$run_dir"
+step ./scripts/test-multi-worker-smoke.sh --log-dir "$run_dir/multi-worker"
 printf '검증 로그: %s\n' "$run_dir"
