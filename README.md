@@ -8,7 +8,7 @@ macOS에 JDK 21과 Python 3.10 이상이 필요합니다. Gradle은 체크섬을
 ```bash
 export JAVA_HOME="$(/usr/libexec/java_home -v 21)"
 ./gradlew bootJar
-java -jar build/libs/twitter-snowflake-0.0.1-SNAPSHOT.jar --snowflake.worker-id=1 --server.port=8080
+"$JAVA_HOME/bin/java" -jar build/libs/twitter-snowflake-0.0.1-SNAPSHOT.jar --snowflake.worker-id=1 --server.port=8080
 ```
 
 ```bash
@@ -31,3 +31,20 @@ curl -X POST http://localhost:8080/api/ids
 ```
 
 [작업 진입 지침](context/AGENT.md)과 [설계 결정](context/decisions.md)을 확인합니다.
+
+## 두 워커 서버 실행
+같은 JAR을 서로 다른 포트·워커로 두 터미널에서 실행합니다.
+
+```bash
+export JAVA_HOME="$(/usr/libexec/java_home -v 21)"
+"$JAVA_HOME/bin/java" -jar build/libs/twitter-snowflake-0.0.1-SNAPSHOT.jar --snowflake.worker-id=1 --server.port=18081
+```
+
+```bash
+export JAVA_HOME="$(/usr/libexec/java_home -v 21)"
+"$JAVA_HOME/bin/java" -jar build/libs/twitter-snowflake-0.0.1-SNAPSHOT.jar --snowflake.worker-id=2 --server.port=18082
+```
+
+각 터미널에서 Ctrl+C로 종료합니다. 자동 검증은 `./scripts/multi-worker-smoke-test.sh`이며 각 서버2048건·합계4096건의 고유성과 복원 필드를 검사합니다.
+`./scripts/test-multi-worker-smoke.sh --log-dir build/verification/manual-multi`는 정상 검사와 시작 실패·포트 충돌·HTTP 실패·중단·필수 설정 검사를 실행합니다. Python 3.10 이상이 없으면 서버 시작 전에 종료하며 자동 설치하지 않습니다.
+같은 워커를 재사용하거나 서버를 재시작하면 중복 가능성이 있으며 두 서버 응답의 전역 엄격 정렬은 보장하지 않습니다.
