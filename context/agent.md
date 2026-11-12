@@ -8,6 +8,7 @@
 2026-11-12 사용자 요청에 따라 이전의 Agy 구현·Codex 최종 검증 고정 분담을 대체한다.
 
 ## 시작
+[설명과 문서 작성 지침](rules/explanation-and-documentation.md)을 대화·문서·리뷰에 적용합니다.
 [실습 스킬](skills/snowflake-practice/SKILL.md)을 적용한다.
 [기능 목록](tasks.md), [진행 상태](progress.md), [결정](decisions.md)을 확인한다.
 구현 전 [규칙](rules/workflow.md)과 [검증 안내](verification/README.md)를 읽는다.
