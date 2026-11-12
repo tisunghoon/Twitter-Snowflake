@@ -4,6 +4,7 @@
 [실습 스킬](../skills/snowflake-practice/SKILL.md)과 [기능 목록](../tasks.md)을 읽는다.
 
 ## 1. 계획
+이슈 요청은 [이슈 실행 규칙](issue-execution.md)과 [기능 계획 템플릿](../features/template.md)을 따른다.
 메인 에이전트가 기존 코드·변경 상태·요구사항을 확인한다.
 변경 파일, API·DB·설정 영향, 정상·실패 조건, 검증 방법을 기능 plan.md에 제시한다.
 사용자가 기능 계획을 승인하면 구현한다. 승인한 범위의 수정을 다시 묻지 않는다.
