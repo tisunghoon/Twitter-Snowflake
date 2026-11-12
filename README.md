@@ -30,7 +30,7 @@ curl -X POST http://localhost:8080/api/ids
 ./scripts/smoke-test.sh --port 18080 --worker 1 --log-dir build/verification/manual
 ```
 
-[작업 진입 지침](context/AGENT.md)과 [설계 결정](context/decisions.md)을 확인합니다.
+[작업 진입 지침](AGENT.md)과 [설계 결정](context/decisions.md)을 확인합니다.
 
 ## 두 워커 서버 실행
 같은 JAR을 서로 다른 포트·워커로 두 터미널에서 실행합니다.
