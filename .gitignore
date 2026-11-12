@@ -1,0 +1,8 @@
+.gradle/
+build/
+__pycache__/
+
+# Local agent instructions and session context
+/AGENT.md
+/agent.md
+/context/
